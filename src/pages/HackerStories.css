@@ -1,0 +1,21 @@
+/* Styling only for Hacker Stories page */
+ul {
+    text-align: left;
+}
+
+li {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.sm-btn {
+    border-radius: 2px;
+    border: 1px solid transparent;
+    padding: 0.2em 0.4em;
+    /* font-size: 1em;
+    font-weight: 500;
+    font-family: inherit; */
+    background-color: #1a1a1a;
+    /* cursor: pointer;
+    transition: border-color 0.25s; */
+    /* float: right; */
+  }
