@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 // pages
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
+import Weather from './pages/Weather.jsx';
+import HackerStories from './pages/HackerStories.jsx';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,15 +27,18 @@ function App() {
       <BrowserRouter basename="/react-router/">
         <header>
           <nav>
-            {/* <h1>Jobarouter</h1> */}
             <NavLink to="/">Home</NavLink>
             <NavLink to="about">About</NavLink>
+            <NavLink to="weather">Weather</NavLink>
+            <NavLink to="hackerstories">HackerStories</NavLink>
           </nav>
         </header>
         <main>
           <Routes>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
+            <Route path="weather" element={<Weather />} />
+            <Route path="hackerstories" element={<HackerStories />} />
           </Routes>
         </main>
       </BrowserRouter>
@@ -41,13 +46,13 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
+        {/* <p>
           Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        </p> */}
       </div>
-      <p className="read-the-docs">
+      {/* <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
     </>
   )
 }
