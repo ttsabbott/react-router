@@ -22,7 +22,7 @@ function App() {
         </a>
       </div>
       <h1>React Router</h1>
-      <BrowserRouter>
+      <BrowserRouter basename="/react-router/">
         <header>
           <nav>
             {/* <h1>Jobarouter</h1> */}

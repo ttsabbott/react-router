@@ -79,7 +79,7 @@ button:focus-visible {
 header nav {
   display: flex;
   gap: 16px;
-  justify-content: end;
+  justify-content: center; /* end; */
   max-width: 1200px;
   margin: 0 auto;
 }
