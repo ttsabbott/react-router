@@ -11,20 +11,23 @@ import Weather from './pages/Weather.jsx';
 import HackerStories from './pages/HackerStories.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [count, setCount] = useState(0);
+  const baseUrl = import.meta.env.BASE_URL;  // Static replacement during build
+  const imageUrl = "/vite.svg";
   return (
     <>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
+          <img src={import.meta.env.BASE_URL + "/vite.svg"} className="logo" alt="Vite logo #2" />
+          <img src={`${baseUrl}${imageUrl}`} alt="Dynamic Image" />
         </a>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
       <h1>React Router</h1>
-      <BrowserRouter basename="/react-router/">
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <header>
           <nav>
             <NavLink to="/">Home</NavLink>
