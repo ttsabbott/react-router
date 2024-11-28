@@ -14,14 +14,16 @@ import {
 } from "react-router-dom";
 
 // layouts
-import RootLayout from './layouts/RootLayout';
+import RootLayout from './layouts/RootLayout.jsx';
+import HelpLayout from './layouts/HelpLayout.jsx';
 
 // pages
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Weather from './pages/Weather.jsx';
 import HackerStories from './pages/HackerStories.jsx';
-import ContactUs from './pages/ContactUs.jsx';
+import Faq from './pages/help/Faq.jsx';
+import Contact from './pages/help/Contact.jsx';
 
 const baseUrl = import.meta.env.BASE_URL; // Static replacement during build
 
@@ -32,7 +34,10 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="weather" element={<Weather />} />
       <Route path="hackerstories" element={<HackerStories />} />
-      <Route path="contactus" element={<ContactUs />} />
+      <Route path="help" element={<HelpLayout />}>
+        <Route path="faq" element={<Faq />} />
+        <Route path="contact" element={<Contact />} />
+      </Route>
     </Route>
   ),
   { basename: "/react-router", }
@@ -55,6 +60,7 @@ function App() {
           <img src={`${baseUrl}${imageUrl}`} className="logo" alt="The Road to React" />
         </a>
         <hr />
+        <br />
       </div>
       <RouterProvider router={router} />
       {/* <BrowserRouter basename={import.meta.env.BASE_URL}>
