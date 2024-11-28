@@ -22,16 +22,17 @@ function App() {
           <img src={import.meta.env.BASE_URL + "/vite.svg"} className="logo" alt="Vite logo #2" />
         </a>
         <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+          <img src={reactLogo} className="logo" alt="React logo" />
         </a>
         <a href="https://www.roadtoreact.com/" target="_blank">
-          <img src={`${baseUrl}${imageUrl}`} alt="The Road to React" height="218" width="175" style={{ 'float': 'right' }} />
+          <img src={`${baseUrl}${imageUrl}`} className="logo" alt="The Road to React" />
         </a>
+        <hr />
       </div>
-      <h1>React Router</h1>
       <BrowserRouter basename={import.meta.env.BASE_URL}>
         <header>
           <nav>
+            <h1>React Router</h1>
             <NavLink to="/">Home</NavLink>
             <NavLink to="about">About</NavLink>
             <NavLink to="weather">Weather</NavLink>
