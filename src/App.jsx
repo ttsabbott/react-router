@@ -2,17 +2,44 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  NavLink,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider
+} from "react-router-dom";
+
+// layouts
+import RootLayout from './layouts/RootLayout';
 
 // pages
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Weather from './pages/Weather.jsx';
 import HackerStories from './pages/HackerStories.jsx';
+import ContactUs from './pages/ContactUs.jsx';
+
+const baseUrl = import.meta.env.BASE_URL; // Static replacement during build
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<RootLayout />}>
+      <Route index element={<Home />} />
+      <Route path="about" element={<About />} />
+      <Route path="weather" element={<Weather />} />
+      <Route path="hackerstories" element={<HackerStories />} />
+      <Route path="contactus" element={<ContactUs />} />
+    </Route>
+  ),
+  { basename: "/react-router", }
+);
 
 function App() {
   const [count, setCount] = useState(0);
-  const baseUrl = import.meta.env.BASE_URL;  // Static replacement during build
   const imageUrl = "/The Road to React.png";
   return (
     <>
@@ -29,7 +56,8 @@ function App() {
         </a>
         <hr />
       </div>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <RouterProvider router={router} />
+      {/* <BrowserRouter basename={import.meta.env.BASE_URL}>
         <header>
           <nav>
             <h1>React Router</h1>
@@ -47,7 +75,7 @@ function App() {
             <Route path="hackerstories" element={<HackerStories />} />
           </Routes>
         </main>
-      </BrowserRouter>
+      </BrowserRouter> */}
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
