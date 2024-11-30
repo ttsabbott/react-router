@@ -11,6 +11,7 @@ export default function RootLayout() {
                     <NavLink to="weather">Weather</NavLink>
                     <NavLink to="hackerstories">Hacker Stories</NavLink>
                     <NavLink to="help">Help</NavLink>
+                    <NavLink to="careers">Careers</NavLink>
                 </nav>
             </header>
             <main>

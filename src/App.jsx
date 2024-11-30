@@ -16,6 +16,7 @@ import {
 // layouts
 import RootLayout from './layouts/RootLayout.jsx';
 import HelpLayout from './layouts/HelpLayout.jsx';
+import CareersLayout from './layouts/CareersLayout';
 
 // pages
 import Home from './pages/Home.jsx';
@@ -24,6 +25,9 @@ import Weather from './pages/Weather.jsx';
 import HackerStories from './pages/HackerStories.jsx';
 import Faq from './pages/help/Faq.jsx';
 import Contact from './pages/help/Contact.jsx';
+import NotFound from './pages/NotFound.jsx';
+import Careers, { careersLoader } from './pages/careers/Careers.jsx';
+import CareerDetails, { careerDetailsLoader } from './pages/careers/CareerDetails.jsx';
 
 const baseUrl = import.meta.env.BASE_URL; // Static replacement during build
 
@@ -38,6 +42,12 @@ const router = createBrowserRouter(
         <Route path="faq" element={<Faq />} />
         <Route path="contact" element={<Contact />} />
       </Route>
+      <Route path="careers" element={<CareersLayout />}>
+        <Route index element={<Careers />} loader={careersLoader} />
+        <Route path=":id" element={<CareerDetails />} loader={careerDetailsLoader} />
+
+      </Route>
+      <Route path="*" element={<NotFound />} />
     </Route>
   ),
   { basename: "/react-router", }
