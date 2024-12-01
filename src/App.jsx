@@ -28,6 +28,7 @@ import Contact from './pages/help/Contact.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Careers, { careersLoader } from './pages/careers/Careers.jsx';
 import CareerDetails, { careerDetailsLoader } from './pages/careers/CareerDetails.jsx';
+import CareersError from './pages/careers/CareersError.jsx';
 
 const baseUrl = import.meta.env.BASE_URL; // Static replacement during build
 
@@ -42,10 +43,10 @@ const router = createBrowserRouter(
         <Route path="faq" element={<Faq />} />
         <Route path="contact" element={<Contact />} />
       </Route>
-      <Route path="careers" element={<CareersLayout />}>
+      <Route path="careers" element={<CareersLayout />}  errorElement={<CareersError/>}>
         <Route index element={<Careers />} loader={careersLoader} />
         <Route path=":id" element={<CareerDetails />} loader={careerDetailsLoader} />
-
+        {/* Note: errorElement could also be put on the sub-routes */}
       </Route>
       <Route path="*" element={<NotFound />} />
     </Route>
