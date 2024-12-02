@@ -24,7 +24,7 @@ import About from './pages/About.jsx';
 import Weather from './pages/Weather.jsx';
 import HackerStories from './pages/HackerStories.jsx';
 import Faq from './pages/help/Faq.jsx';
-import Contact from './pages/help/Contact.jsx';
+import Contact, { contactAction } from './pages/help/Contact.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Careers, { careersLoader } from './pages/careers/Careers.jsx';
 import CareerDetails, { careerDetailsLoader } from './pages/careers/CareerDetails.jsx';
@@ -41,9 +41,9 @@ const router = createBrowserRouter(
       <Route path="hackerstories" element={<HackerStories />} />
       <Route path="help" element={<HelpLayout />}>
         <Route path="faq" element={<Faq />} />
-        <Route path="contact" element={<Contact />} />
+        <Route path="contact" element={<Contact />} action={contactAction} />
       </Route>
-      <Route path="careers" element={<CareersLayout />}  errorElement={<CareersError/>}>
+      <Route path="careers" element={<CareersLayout />} errorElement={<CareersError />}>
         <Route index element={<Careers />} loader={careersLoader} />
         <Route path=":id" element={<CareerDetails />} loader={careerDetailsLoader} />
         {/* Note: errorElement could also be put on the sub-routes */}
@@ -59,7 +59,7 @@ function App() {
   const imageUrl = "/The Road to React.png";
   return (
     <>
-      <div>
+      <div className="center-me">
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
           <img src={import.meta.env.BASE_URL + "/vite.svg"} className="logo" alt="Vite logo #2" />
