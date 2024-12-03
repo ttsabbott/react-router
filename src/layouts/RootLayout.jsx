@@ -9,6 +9,7 @@ export default function RootLayout() {
                     <h1>React Router</h1>
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="about">About</NavLink>
+                    <NavLink to="blog">Blog</NavLink>
                     <NavLink to="weather">Weather</NavLink>
                     <NavLink to="hackerstories">Hacker Stories</NavLink>
                     <NavLink to="help">Help</NavLink>

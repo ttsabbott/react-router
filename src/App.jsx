@@ -16,19 +16,20 @@ import {
 // layouts
 import RootLayout from './layouts/RootLayout.jsx';
 import HelpLayout from './layouts/HelpLayout.jsx';
-import CareersLayout from './layouts/CareersLayout';
+import CareersLayout from './layouts/CareersLayout.jsx';
 
 // pages
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
-import Weather from './pages/Weather.jsx';
-import HackerStories from './pages/HackerStories.jsx';
+import Weather from './pages/weather/Weather.jsx';
+import HackerStories from './pages/hackerstories/HackerStories.jsx';
 import Faq from './pages/help/Faq.jsx';
 import Contact, { contactAction } from './pages/help/Contact.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Careers, { careersLoader } from './pages/careers/Careers.jsx';
 import CareerDetails, { careerDetailsLoader } from './pages/careers/CareerDetails.jsx';
 import CareersError from './pages/careers/CareersError.jsx';
+import Blog from './pages/blogs/Blog.jsx';
 
 const baseUrl = import.meta.env.BASE_URL; // Static replacement during build
 
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
     <Route element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
+      <Route path="blog" element={<Blog />} />
       <Route path="weather" element={<Weather />} />
       <Route path="hackerstories" element={<HackerStories />} />
       <Route path="help" element={<HelpLayout />}>
