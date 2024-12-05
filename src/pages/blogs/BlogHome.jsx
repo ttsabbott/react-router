@@ -59,7 +59,7 @@ const BlogHome = () => {
                 setBlogs(data);
                 setIsPending(false);
             })    
-        }, 2000); // Simulate the request taking 2 seconds
+        }, 1500); // Simulate the request taking 1.5 seconds
     }, []); // using an empty array as the 2nd parm, makes this only run once during initiation
     //}, [name]); // adding a variable name here means whenever it changes, then run this method
 
