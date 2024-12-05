@@ -39,7 +39,7 @@ const BlogHome = () => {
         setTimeout(() => {
             console.log('use effect ran... ' + name);
             const headers = {
-                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5od3ZpdGpldG1scWJjaGRqZmF6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMjI4ODQwMiwiZXhwIjoyMDQ3ODY0NDAyfQ.pDq3ZVwZ4Ci08_ope3O4MQThy3FpoKHIUIk0XxGRCFc',
+                'apikey': '',
             };
             const blogsLink = 'https://nhwvitjetmlqbchdjfaz.supabase.co/rest/v1/blogs';
             console.log(blogsLink);
