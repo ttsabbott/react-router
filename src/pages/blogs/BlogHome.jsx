@@ -38,11 +38,14 @@ const BlogHome = () => {
     useEffect(() => { // this function fires on every render!
         setTimeout(() => {
             console.log('use effect ran... ' + name);
+            const supa_url = import.meta.env.VITE_SUPABASE_URL;
+            const supa_key = import.meta.env.VITE_SUPABASE_KEY;
+            //console.log(supa_url, supa_key);
             const headers = {
-                'apikey': '',
+                'apikey': supa_key,
             };
-            const blogsLink = 'https://nhwvitjetmlqbchdjfaz.supabase.co/rest/v1/blogs';
-            console.log(blogsLink);
+            const blogsLink = supa_url + '/rest/v1/blogs';
+            //console.log(blogsLink);
             fetch(blogsLink, {
                 method: 'GET', // or 'POST', 'PUT', etc.
                 headers: headers

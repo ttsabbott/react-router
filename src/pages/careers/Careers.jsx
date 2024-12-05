@@ -16,10 +16,15 @@ export default function Careers() {
 
 // data loader
 export const careersLoader = async () => {
+    const supa_url = import.meta.env.VITE_SUPABASE_URL;
+    const supa_key = import.meta.env.VITE_SUPABASE_KEY;
+    //console.log(supa_url, supa_key);
     const headers = {
-        'apikey': '',
+        'apikey': supa_key,
     };
-    const res = await fetch('https://nhwvitjetmlqbchdjfaz.supabase.co/rest/v1/careers', {
+    const careersLink = supa_url + '/rest/v1/careers';
+    //console.log(careersLink);
+    const res = await fetch(careersLink, {
         method: 'GET', // or 'POST', 'PUT', etc.
         headers: headers
     });
