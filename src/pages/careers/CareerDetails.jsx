@@ -1,40 +1,30 @@
 import { useLoaderData, useParams } from "react-router-dom";
+import useFetch from "../../useFetch";
 
-export default function CareerDetails() {
+const CareerDetails = () => {
+
     const { id } = useParams();
-    const careerArray = useLoaderData();
-    const career = careerArray[0];
-    console.log(career);
-    //console.log(career[0].title)
+    console.log(id);
+
+    const url = import.meta.env.VITE_SUPABASE_URL + '/rest/v1/careers' + '?id=eq.' + id;
+    console.log('inside CareerDetails, url=[' + url + ']');
+    const headers = { 'apikey': import.meta.env.VITE_SUPABASE_KEY };
+    const { data: career, isPending, error } = useFetch(url, headers);
+
     return (
         <div className="career-details">
-            <h2>Career Details for {career.title}</h2>
-            <p>Starting salary: {career.salary}</p>
-            <p>Location: {career.location}</p>
-            <p>yada yada yada</p>
+            {isPending && <div>Loading...</div>}
+            {error && <div>{error}</div>}
+            {career && (
+                <article>
+                    <h2>Career Details for {career[0].title}</h2>
+                    <p>Starting salary: {career[0].salary}</p>
+                    <p>Location: {career[0].location}</p>
+                </article>
+            )}
         </div>
     );
-}
 
-// loader function
-export const careerDetailsLoader = async ({ params }) => {
-    const { id } = params;
-    const supa_url = import.meta.env.VITE_SUPABASE_URL;
-    const supa_key = import.meta.env.VITE_SUPABASE_KEY;
-    //console.log(supa_url, supa_key);
-    const headers = {
-        'apikey': supa_key,
-    };
-    const careersDetailsLink = supa_url + '/rest/v1/careers' + '?id=eq.' + id;
-    //console.log(careersDetailsLink);
-    const res = await fetch(careersDetailsLink, {
-        method: 'GET', // or 'POST', 'PUT', etc.
-        headers: headers
-    });
-    //console.log(res);
-    //const res = await fetch('http://localhost:4000/careers/' + id);
-    if (!res.ok) {
-        throw Error('Could not find that career');
-    }
-    return res.json();
-}
+};
+
+export default CareerDetails;

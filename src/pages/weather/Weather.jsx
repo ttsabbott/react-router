@@ -5,4 +5,4 @@ export default function Weather() {
       <p>Placeholder...</p>
     </div>
   );
-}
+};

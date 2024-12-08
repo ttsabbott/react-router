@@ -8,4 +8,4 @@ export default function NotFound() {
             <p>Go to the <Link to="/">Homepage</Link>.</p>
         </div>
     );
-}
+};

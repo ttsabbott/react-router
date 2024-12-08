@@ -1,20 +1,31 @@
 import { Link, useLoaderData } from "react-router-dom";
+import useFetch from "../../useFetch";
 
 export default function Careers() {
-    const careers = useLoaderData();
+    //const careers = useLoaderData();
+    const url = import.meta.env.VITE_SUPABASE_URL + '/rest/v1/careers';
+    const headers = { 'apikey': import.meta.env.VITE_SUPABASE_KEY };
+    const { data: careers, isPending, error } = useFetch(url, headers);
     return (
-        <div className="careers">
-            {careers.map(career => (
-                <Link to={career.id.toString()} key={career.id}>
-                    <p>{career.title}</p>
-                    <p>Based in {career.location}</p>
-                </Link>
-            ))}
+        <div>
+            {isPending && <div>Loading...</div>}
+            {error && <div>{error}</div>}
+            {careers &&
+                <div className="careers">
+                    {careers.map(career => (
+                        <Link to={career.id.toString()} key={career.id}>
+                            <p>{career.title}</p>
+                            <p>Based in {career.location}</p>
+                        </Link>
+                    ))}
+                </div>
+            } {/*} handleDelete={handleDelete} />}*/}
         </div>
     );
-}
+};
 
 // data loader
+/*
 export const careersLoader = async () => {
     const supa_url = import.meta.env.VITE_SUPABASE_URL;
     const supa_key = import.meta.env.VITE_SUPABASE_KEY;
@@ -34,3 +45,4 @@ export const careersLoader = async () => {
     }
     return res.json();
 }
+*/

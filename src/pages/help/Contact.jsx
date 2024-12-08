@@ -20,7 +20,7 @@ export default function Contact() {
       </Form>
     </div>
   );
-}
+};
 
 export const contactAction = async ({ request }) => {
   // console.log(request);
@@ -38,4 +38,4 @@ export const contactAction = async ({ request }) => {
   // redirect the user
   console.log('before   redirect');
   return redirect('/');
-}
+};

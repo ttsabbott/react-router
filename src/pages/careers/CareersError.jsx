@@ -10,4 +10,4 @@ export default function CareersError() {
             <Link to="/">Back to the homepage</Link>
         </div>
     );
-}
+};

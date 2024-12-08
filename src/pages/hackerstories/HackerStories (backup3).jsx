@@ -230,13 +230,13 @@ const Toggler = ({ toggle, onToggle }) => {
     }
   }, [toggle]); // Note: by passing the variable as the second parm, this will only run if variable changes!
   return (
-    <> {/* This is the shorthand abbreviation of React.Fragment */}
+    <div>
       <input type="text" value={title} onChange={handleChange} />
       <button type="button" onClick={onToggle}>
         Toggle
       </button>
       {toggle && <div>{title}</div>}
-    </>
+    </div>
   );
 };
 
@@ -276,7 +276,7 @@ const InputWithLabel3 = ({
   onInputClear,
   children,
 }) => (
-  <>
+  <div>
     <label htmlFor={id}>{children}</label>
     &nbsp;
     <input
@@ -290,7 +290,7 @@ const InputWithLabel3 = ({
     <p>
       Searching for <strong>{value}</strong>
     </p>
-  </>
+  </div>
 );
 
 const InputWithLabel = ({
@@ -312,7 +312,7 @@ const InputWithLabel = ({
     }
   }, [isFocused]);
   return (
-    <>
+    <div>
       <label htmlFor={id}>{children}</label>
       &nbsp;
       {/* B */}
@@ -328,7 +328,7 @@ const InputWithLabel = ({
       <p>
         Searching for <strong>{value}</strong>
       </p>
-    </>
+    </div>
   );
 };
 

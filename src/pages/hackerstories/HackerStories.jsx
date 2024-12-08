@@ -174,12 +174,12 @@ const HackerStories = () => {
       {stories.isLoading ? (
         <p>Loading...</p>
       ) : (
-        <>
+        <div>
           <p>
             Number of results found <strong>{nbrOfResults.toLocaleString()}</strong>
           </p>
           <List list={stories.data} onRemoveItem={handleRemoveStory} />
-        </>
+        </div>
       )}
     </div>
   );
@@ -204,7 +204,8 @@ const InputWithLabel = ({
     }
   }, [isFocused]);
   return (
-    <>
+    <div>
+      {/* Note: <> + </> is the shorthand abbreviation of a React.Fragment */}
       <label htmlFor={id}>{children}</label>
       &nbsp;
       <input
@@ -222,7 +223,7 @@ const InputWithLabel = ({
       {/* <p>
           Number of results found <strong>{qty}</strong>
         </p> */}
-    </>
+    </div>
   );
 };
 

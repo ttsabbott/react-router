@@ -15,4 +15,4 @@ export default function About() {
       <button onClick={() => setUser(null)}>Logout</button>
     </div>
   );
-}
+};
