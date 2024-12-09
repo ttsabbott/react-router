@@ -27,6 +27,7 @@ const useFetch = (url, headers) => {
                 headers: headers,
                 signal: abortCont.signal
             })
+                //json-server -p 4100 -w ./data/blogs.json
                 //fetch('http://localhost:4100/blogs')
                 .then(res => {
                     if (!res.ok) {

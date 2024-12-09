@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
 import useFetch from "../../useFetch";
 
+// The Blog module was created using "iamshaujp"'s course: Complete-React-Tutorial
+// https://github.com/iamshaunjp/Complete-React-Tutorial/blob/lesson-32/dojo-blog/src/index.css
+// https://www.youtube.com/watch?v=XW0t2lk4Ffo&list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d&index=32
+
 const BlogHome = () => {
 
     const url = import.meta.env.VITE_SUPABASE_URL + '/rest/v1/blogs';
@@ -83,7 +87,7 @@ const BlogHome = () => {
             <h1>{title}</h1>
             {isPending && <div>Loading...</div>}
             {error && <div>{error}</div>}
-            {blogs && <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />}
+            {blogs && <BlogList blogs={blogs} title="All Blogs!" />} {/* handleDelete={handleDelete} />} */}
             {/* <BlogList blogs={blogs.filter((blog) => blog.author === 'mario')} title="Mario's blogs" handleDelete={handleDelete} /> */}
             {/* <BlogList blogs={blogs.filter((blog) => blog.author !== 'mario')} title="Not Mario's blogs" handleDelete={handleDelete} /> */}
             {/* <div className="extra">

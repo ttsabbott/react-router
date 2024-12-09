@@ -2,9 +2,9 @@ import { NavLink, Outlet, Link } from 'react-router-dom';
 
 const BlogNavBar = () => {
     return (
-        <nav className="navbar">
-            <h1>Blog Nav Bar</h1>
-            <div className="links">
+        // <nav className="navbar">
+        //     <h1>Blog Nav Bar</h1>
+        //     <div className="links">
                 <nav>
                     <NavLink to="bloghome">Blog Home</NavLink>
                     <NavLink to="blogcreate">New Blog</NavLink>
@@ -23,8 +23,8 @@ const BlogNavBar = () => {
                         borderRadius: '8px'
                     }}>New Blog</a> */}
                 </nav>
-            </div>
-        </nav>
+        //     </div>
+        // </nav>
     );
 };
 

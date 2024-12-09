@@ -5,7 +5,8 @@ import BlogNavBar from "../pages/blogs/BlogNavBar";
 
 export default function BlogLayout() {
     return (
-        <div className="blog-css"> {/*help-layout">*/}
+        <div className="help-layout">
+            {/* <div className="blog-css"> */}
             <h2>Blog layout</h2>
             <p>Placeholder...</p>
             <BlogNavBar />
@@ -13,9 +14,9 @@ export default function BlogLayout() {
                 <NavLink to="bloghome">Blog Home</NavLink>
                 <NavLink to="blogcreate">Create</NavLink>
             </nav> */}
-            <div className="content">
+            {/* <div className="content"> */}
                 <Outlet />
-            </div>
+            {/* </div> */}
             {/* <hr />
             <div className="blog-css">
                 <BlogNavBar />
