@@ -7,7 +7,7 @@ const CareerDetails = () => {
     console.log(id);
 
     const url = import.meta.env.VITE_SUPABASE_URL + '/rest/v1/careers' + '?id=eq.' + id;
-    console.log('inside CareerDetails, url=[' + url + ']');
+    //console.log('inside CareerDetails, url=[' + url + ']');
     const headers = { 'apikey': import.meta.env.VITE_SUPABASE_KEY };
     const { data: career, isPending, error } = useFetch(url, headers);
 

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 // Option B:
 //const BlogList = ({ blogs, title, handleDelete }) => {
 const BlogList = ({ blogs, title }) => {
-    console.log(blogs);
+    //console.log(blogs);
     return (
         <div className="blog-list">
             <h2>{title}</h2>

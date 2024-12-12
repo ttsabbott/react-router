@@ -3,11 +3,11 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 import {
-  BrowserRouter,
-  Routes,
+  //BrowserRouter,
+  //Routes,
   Route,
-  Link,
-  NavLink,
+  //Link,
+  //NavLink,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider
@@ -27,14 +27,14 @@ import HackerStories from './pages/hackerstories/HackerStories.jsx';
 import Faq from './pages/help/Faq.jsx';
 import Contact, { contactAction } from './pages/help/Contact.jsx';
 import NotFound from './pages/NotFound.jsx';
-import Careers from './pages/careers/Careers.jsx';
-//import CareerDetails from './pages/careers/CareerDetails.jsx';
 //import Careers, { careersLoader } from './pages/careers/Careers.jsx';
+import Careers from './pages/careers/Careers.jsx';
 //import CareerDetails, { careerDetailsLoader } from './pages/careers/CareerDetails.jsx';
 import CareerDetails from './pages/careers/CareerDetails.jsx';
 import CareersError from './pages/careers/CareersError.jsx';
 import BlogHome from './pages/blogs/BlogHome.jsx';
 import BlogCreate from './pages/blogs/BlogCreate.jsx';
+import BlogEditUpdate from './pages/blogs/BlogEditUpdate.jsx';
 import BlogDetails from './pages/blogs/BlogDetails.jsx';
 
 const baseUrl = import.meta.env.BASE_URL; // Static replacement during build
@@ -47,6 +47,7 @@ const router = createBrowserRouter(
       <Route path="blogs" element={<BlogLayout />}>
         <Route path="bloghome" element={<BlogHome />} />
         <Route path="blogcreate" element={<BlogCreate />} />
+        <Route path="blogeditupdate/:id" element={<BlogEditUpdate />} />
         <Route path=":id" element={<BlogDetails />} />
       </Route>
       <Route path="weather" element={<Weather />} />
@@ -87,10 +88,10 @@ function App() {
           <img src={`${baseUrl}${imageUrl}`} className="logo" alt="The Road to React" />
         </a>
         <hr />
-        <br />
       </div>
       <RouterProvider router={router} />
-      {/* <BrowserRouter basename={import.meta.env.BASE_URL}>
+      {/*
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <header>
           <nav>
             <h1>React Router</h1>
@@ -108,18 +109,15 @@ function App() {
             <Route path="hackerstories" element={<HackerStories />} />
           </Routes>
         </main>
-      </BrowserRouter> */}
+      </BrowserRouter>
+      */}
+      {/*
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        {/* <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p> */}
       </div>
-      {/* <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}
+      */}
     </div>
   );
 };

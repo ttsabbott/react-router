@@ -2,6 +2,12 @@ import { useState } from "react";
 //import { useHistory } from 'react-router-dom'; // useHistory was replaced by useNavigate in ver 6
 import { useNavigate } from 'react-router-dom';
 
+import supabase from '../../supabaseClient';
+// import { createClient } from '@supabase/supabase-js';
+// const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+// const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
+// const supabase = createClient(supabaseUrl, supabaseKey);
+
 const BlogCreate = () => {
 
     const [title, setTitle] = useState('');
@@ -12,6 +18,7 @@ const BlogCreate = () => {
     //const history = useHistory(); // useHistory was replaced by useNavigate in ver 6
     const navigate = useNavigate();
 
+    /*
     const handleSubmit = (e) => {
 
         e.preventDefault();
@@ -37,11 +44,39 @@ const BlogCreate = () => {
         });
 
     };
+    */
+
+    const [loading, setLoading] = useState(false);
+
+    const handleInsertSupabase = async (e) => {
+        e.preventDefault();
+        console.log('handleInsertSupabase');
+        setLoading(true);
+        const blog = { title, body, author };
+        console.log(blog);
+        try {
+            const { blog: insertedData, error } = await supabase
+                .from('blogs')
+                .insert([blog])
+                .single();
+            if (error) {
+                throw error;
+            }
+            console.log('Data inserted successfully:', insertedData);
+            navigate('/blogs/bloghome');
+            // Optionally clear the form or update state
+        } catch (error) {
+            console.error('Error inserting data:', error);
+            // Handle errors, e.g., display an error message
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="blog-create">
             <h2>Add a New Blog!</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleInsertSupabase}>
                 <label htmlFor="">Blog title:</label>
                 <input
                     type="text"

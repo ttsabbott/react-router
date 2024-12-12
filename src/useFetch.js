@@ -34,7 +34,7 @@ const useFetch = (url, headers) => {
                         console.log('could not fetch data for that resource');
                         throw Error('could not fetch data for that resource');
                     }
-                    console.log('about to return res.json');
+                    //console.log('about to return res.json');
                     return res.json();
                 })
                 .then(data => {

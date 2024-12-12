@@ -14,12 +14,12 @@ export default function CareerDetails() {
 
     /*
     const url = import.meta.env.VITE_SUPABASE_URL + '/rest/v1/careers' + '?id=eq.' + id;
-    console.log('inside CareerDetails, url=[' + url + ']');
+    //console.log('inside CareerDetails, url=[' + url + ']');
     const headers = { 'apikey': import.meta.env.VITE_SUPABASE_KEY };
     const { data: careerArray, isPending, error } = useFetch(url, headers);
-    console.log(JSON.stringify(careerArray, null, 4));
+    //console.log(JSON.stringify(careerArray, null, 4));
     const career = careerArray[0];
-    console.log(JSON.stringify(career, null, 4));
+    //console.log(JSON.stringify(career, null, 4));
     */
 
     return (
