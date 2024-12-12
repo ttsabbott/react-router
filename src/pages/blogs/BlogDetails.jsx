@@ -76,14 +76,15 @@ const BlogDetails = () => {
         // const blog = { title, body, author };
         try {
             console.log('id=[' + id + ']');
-            const { blog: deletedData, error } = await supabase
+            const { data, error } = await supabase
                 .from('blogs')
                 .delete()
-                .eq('id', id);
+                .eq('id', id)
+                .select();
             if (error) {
                 throw error;
             }
-            console.log('Data deleted successfully:', deletedData);
+            console.log('Data deleted successfully:', data);
             navigate('/blogs/bloghome');
             // Optionally clear the form or update state
         } catch (error) {

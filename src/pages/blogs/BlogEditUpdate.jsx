@@ -100,7 +100,7 @@ const BlogEditUpdate = () => {
         try {
             console.log('id=[' + id + ']');
             console.log(title, body, author);
-            const { blog: updatedData, error } = await supabase
+            const { data, error } = await supabase
                 .from('blogs')
                 .update({ title: title, body: body, author: author })
                 .eq('id', id)
@@ -108,7 +108,7 @@ const BlogEditUpdate = () => {
             if (error) {
                 throw error;
             }
-            console.log('Data updated successfully:', updatedData);
+            console.log('Data updated successfully:', data);
             navigate('/blogs/bloghome');
             // Optionally clear the form or update state
         } catch (error) {
