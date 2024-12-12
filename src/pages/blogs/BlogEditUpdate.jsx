@@ -109,7 +109,7 @@ const BlogEditUpdate = () => {
                 throw error;
             }
             console.log('Data updated successfully:', data);
-            navigate('/blogs/bloghome');
+            navigate(-1); //'/blogs/bloghome');
             // Optionally clear the form or update state
         } catch (error) {
             console.error('Error updating data:', error);
@@ -117,6 +117,11 @@ const BlogEditUpdate = () => {
         } finally {
             setIsUpdating(false);
         }
+    };
+
+    const handleCancel = (e) => {
+        e.preventDefault();
+        navigate(-1); //'/blogs/bloghome');
     };
 
     return (
@@ -150,6 +155,7 @@ const BlogEditUpdate = () => {
                 </select>
                 {!isUpdating && <button>Update Blog</button>}
                 {isUpdating && <button disabled>Updating Blog...</button>}
+                <button onClick={handleCancel}>Cancel</button>
             </form>
         </div>
     );

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 // import useFetch from "../../useFetch";
 import { useNavigate } from 'react-router-dom';
 // import { Link } from "react-router-dom";
+//import useConfirm from '../../useConfirm';
 
 import supabase from '../../supabaseClient';
 // import { createClient } from '@supabase/supabase-js';
@@ -70,7 +71,7 @@ const BlogDetails = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleDeleteSupabase = async (e) => {
-        e.preventDefault();
+        //e.preventDefault();
         console.log('handleDeleteSupabase');
         setIsLoading(true);
         // const blog = { title, body, author };
@@ -102,6 +103,49 @@ const BlogDetails = () => {
         navigate('/blogs/blogeditupdate/' + id);
     };
 
+    //const { isOpen, message, showConfirm, handleConfirm, handleCancel } = useConfirm();
+
+    // const performDelete = () => {
+    //     console.log('item deleted...');
+    // };
+
+    // const handleDelete = () => {
+    //     showConfirm('Are you sure you want to delete this item?', performDelete);
+    //     // () => {
+    //     //     // Perform delete logic
+    //     //     console.log('Item deleted');
+    //     // });
+    // };
+
+    function useConfirm(message, onConfirm, onAbort) {
+        const confirm = () => {
+            if (window.confirm(message))
+                onConfirm();
+            else
+                onAbort();
+        }
+        return confirm
+    }
+    const handleDelete = () => {
+        /* ... */
+        console.log('handle delete');
+        handleDeleteSupabase();
+    };
+    const handleAbort = () => {
+        /* ignore */
+    };
+    const confirmDelete = useConfirm(
+        'Are you sure?',
+        handleDelete,
+        handleAbort,
+    );
+
+    const handleBack = (e) => {
+        e.preventDefault();
+        navigate(-1); //'/blogs/bloghome');
+    };
+
+
     return (
         <div className="blog-details">
             {isPending && <div>Loading...</div>}
@@ -127,7 +171,21 @@ const BlogDetails = () => {
                         backgroundColor: 'yellow',
                         borderRadius: '8px'
                     }}>Edit</button>
-                    <button onClick={handleDeleteSupabase}>Delete</button>
+                    {/* <button onClick={handleDeleteSupabase}>Delete</button>
+                    <hr /> */}
+                    <button onClick={confirmDelete}>Delete</button>
+                    {/* <hr />
+                    <button onClick={handleDelete}>Delete</button>
+                    {isOpen && (
+                        <div className="modal">
+                            <div className="modal-content">
+                                <p>{message}</p>
+                                <button onClick={handleConfirm}>Yes</button>
+                                <button onClick={handleCancel}>No</button>
+                            </div>
+                        </div>
+                    )} */}
+                    <button onClick={handleBack}>Back</button>
                 </article>
             )}
         </div>

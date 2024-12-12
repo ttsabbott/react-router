@@ -12,6 +12,7 @@ const BlogList = ({ blogs, title }) => {
     return (
         <div className="blog-list">
             <h2>{title}</h2>
+            {blogs && !blogs.message && <p># of blogs=[{blogs.length}]</p>}
             {blogs && blogs.message ? <div>{blogs.message}<br />{blogs.hint}</div> :
                 blogs.map((blog) => (
                     <div className="blog-preview" key={blog.id}>
@@ -21,7 +22,8 @@ const BlogList = ({ blogs, title }) => {
                             {/* <button onClick={() => handleDelete(blog.id)}>delete blog</button> */}
                         </Link>
                     </div>
-                ))}
+                ))
+            }
         </div>
     );
 };
