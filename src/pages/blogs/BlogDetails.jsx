@@ -145,6 +145,9 @@ const BlogDetails = () => {
         navigate(-1); //'/blogs/bloghome');
     };
 
+    function cleanBody(b) {
+        return b != null && b.replaceAll("\\n", '\n').replaceAll('\\"', '"');  
+    }
 
     return (
         <div className="blog-details">
@@ -155,7 +158,7 @@ const BlogDetails = () => {
                 <article>
                     <h2>{blog.title}</h2>
                     <p>Written by {blog.author}</p>
-                    <pre>{blog.body} {/*}.replaceAll("\\n", '\n').replaceAll('\\"', '"')}*/}</pre>
+                    <pre>{cleanBody(blog.body)}</pre>
                     {/*
                     <Link to={`/blogs/blogeditupdate/${blog.id}`}>
                         // <h2>Edit</h2>
@@ -172,20 +175,24 @@ const BlogDetails = () => {
                             backgroundColor: 'yellow',
                             // borderRadius: '8px'
                         }}>Edit</button>
-                        {/* <button onClick={handleDeleteSupabase}>Delete</button>
-                    <hr /> */}
+                        {/*
+                        <button onClick={handleDeleteSupabase}>Delete</button>
+                        <hr />
+                        */}
                         <button onClick={confirmDelete}>Delete</button>
-                        {/* <hr />
-                    <button onClick={handleDelete}>Delete</button>
-                    {isOpen && (
-                        <div className="modal">
-                            <div className="modal-content">
-                                <p>{message}</p>
-                                <button onClick={handleConfirm}>Yes</button>
-                                <button onClick={handleCancel}>No</button>
+                        {/*
+                        <hr />
+                        <button onClick={handleDelete}>Delete</button>
+                        {isOpen && (
+                            <div className="modal">
+                                <div className="modal-content">
+                                    <p>{message}</p>
+                                    <button onClick={handleConfirm}>Yes</button>
+                                    <button onClick={handleCancel}>No</button>
+                                </div>
                             </div>
-                        </div>
-                    )} */}
+                        )}
+                        */}
                         <button onClick={handleBack}>Back</button>
                     </nav>
                 </article>

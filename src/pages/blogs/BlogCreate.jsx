@@ -107,11 +107,6 @@ const BlogCreate = () => {
                 <nav>
                     {!isPending && <button>Add Blog</button>}
                     {isPending && <button disabled>Adding Blog...</button>}
-                    {/*
-                <p>{title}</p>
-                <p>{body}</p>
-                <p>{author}</p>
-                */}
                     <button onClick={handleCancel}>Cancel</button>
                 </nav>
             </form>
