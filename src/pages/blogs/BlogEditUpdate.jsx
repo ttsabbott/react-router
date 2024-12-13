@@ -153,9 +153,11 @@ const BlogEditUpdate = () => {
                     <option value="yoshi">yoshi</option>
                     <option value="abbott">abbott</option>
                 </select>
-                {!isUpdating && <button>Update Blog</button>}
-                {isUpdating && <button disabled>Updating Blog...</button>}
-                <button onClick={handleCancel}>Cancel</button>
+                <nav>
+                    {!isUpdating && <button>Update Blog</button>}
+                    {isUpdating && <button disabled>Updating Blog...</button>}
+                    <button onClick={handleCancel}>Cancel</button>
+                </nav>
             </form>
         </div>
     );

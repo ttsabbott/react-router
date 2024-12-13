@@ -33,7 +33,7 @@ button {
 /* navbar */
 header nav {
   display: flex;
-  gap: 16px;
+  gap: 10px;
   justify-content: end;
   max-width: 1200px;
   margin: 0 auto;
@@ -50,6 +50,11 @@ header nav a {
   border-radius: 4px;
 }
 
+/* This does not work, why? */
+header nav a:hover {
+  border-color: var(--primary);
+}
+
 header nav a.active {
   background: var(--primary);
 }
@@ -63,16 +68,19 @@ main {
 /* help layout */
 .help-layout nav {
   display: flex;
+  gap: 10px;
   justify-content: center;
-  gap: 30px;
-  margin: 30px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* margin: 30px 0; */
 }
 
 .help-layout nav a {
-  padding: 10px;
-  border: 2px solid white;
-  border-radius: 4px;
   text-decoration: none;
+  padding: 6px;
+  /* padding: 10px; */
+  /* border: 2px solid white; */
+  border-radius: 4px;
 }
 
 .help-layout nav a:hover {

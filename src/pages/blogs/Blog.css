@@ -72,10 +72,13 @@
 .blog-details button {
     background: var(--primary);
     color: #fff;
-    border: 0;
-    padding: 8px;
-    border-radius: 8px;
+    /* border: 0; */
+    /* padding: 8px; */
+    /* border-radius: 8px; */
     cursor: pointer;
+    /* gap: 10px; */
+    padding: 6px;
+    border-radius: 4px;
 }
 
 .blog-details pre {
@@ -116,10 +119,13 @@
 .blog-create button {
     background: var(--primary);
     color: #fff;
-    border: 0;
-    padding: 8px;
-    border-radius: 8px;
+    /* border: 0; */
+    /* padding: 8px; */
+    /* border-radius: 8px; */
     cursor: pointer;
+    /* gap: 10px; */
+    padding: 6px;
+    border-radius: 4px;
 }
 
 /* code {
@@ -134,5 +140,6 @@
 }
 
 .extra button {
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    gap: 10px;
 }

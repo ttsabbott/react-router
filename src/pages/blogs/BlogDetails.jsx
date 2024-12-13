@@ -166,15 +166,16 @@ const BlogDetails = () => {
                         }}>Edit</button>
                     </Link>
                     */}
-                    <button onClick={handleEdit} style={{
-                        color: 'black',
-                        backgroundColor: 'yellow',
-                        borderRadius: '8px'
-                    }}>Edit</button>
-                    {/* <button onClick={handleDeleteSupabase}>Delete</button>
+                    <nav>
+                        <button onClick={handleEdit} style={{
+                            color: 'black',
+                            backgroundColor: 'yellow',
+                            // borderRadius: '8px'
+                        }}>Edit</button>
+                        {/* <button onClick={handleDeleteSupabase}>Delete</button>
                     <hr /> */}
-                    <button onClick={confirmDelete}>Delete</button>
-                    {/* <hr />
+                        <button onClick={confirmDelete}>Delete</button>
+                        {/* <hr />
                     <button onClick={handleDelete}>Delete</button>
                     {isOpen && (
                         <div className="modal">
@@ -185,7 +186,8 @@ const BlogDetails = () => {
                             </div>
                         </div>
                     )} */}
-                    <button onClick={handleBack}>Back</button>
+                        <button onClick={handleBack}>Back</button>
+                    </nav>
                 </article>
             )}
         </div>

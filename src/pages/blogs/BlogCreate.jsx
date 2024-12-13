@@ -73,6 +73,11 @@ const BlogCreate = () => {
         }
     };
 
+    const handleCancel = (e) => {
+        e.preventDefault();
+        navigate(-1); //'/blogs/bloghome');
+    };
+
     return (
         <div className="blog-create">
             <h2>Add a New Blog!</h2>
@@ -99,13 +104,16 @@ const BlogCreate = () => {
                     <option value="yoshi">yoshi</option>
                     <option value="abbott">abbott</option>
                 </select>
-                {!isPending && <button>Add Blog</button>}
-                {isPending && <button disabled>Adding Blog...</button>}
-                {/*
+                <nav>
+                    {!isPending && <button>Add Blog</button>}
+                    {isPending && <button disabled>Adding Blog...</button>}
+                    {/*
                 <p>{title}</p>
                 <p>{body}</p>
                 <p>{author}</p>
                 */}
+                    <button onClick={handleCancel}>Cancel</button>
+                </nav>
             </form>
         </div>
     );
