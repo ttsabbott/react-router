@@ -1,6 +1,7 @@
 import { useState } from "react";
 //import { useHistory } from 'react-router-dom'; // useHistory was replaced by useNavigate in ver 6
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 import supabase from '../../supabaseClient';
 // import { createClient } from '@supabase/supabase-js';
@@ -79,37 +80,44 @@ const BlogCreate = () => {
     };
 
     return (
-        <div className="blog-create">
-            <h2>Add a New Blog!</h2>
-            <form onSubmit={handleInsertSupabase}>
-                <label htmlFor="">Blog title:</label>
-                <input
-                    type="text"
-                    required
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <label htmlFor="">Blog body:</label>
-                <textarea
-                    required
-                    value={body}
-                    onChange={(e) => setBody(e.target.value)}
-                ></textarea>
-                <label htmlFor="">Blog author:</label>
-                <select
-                    value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
-                >
-                    <option value="mario">mario</option>
-                    <option value="yoshi">yoshi</option>
-                    <option value="abbott">abbott</option>
-                </select>
-                <nav>
-                    {!isPending && <button>Add Blog</button>}
-                    {isPending && <button disabled>Adding Blog...</button>}
-                    <button onClick={handleCancel}>Cancel</button>
-                </nav>
-            </form>
+        <div>
+            <div className="blog-create">
+                <h2>Add a New Blog!</h2>
+                <form onSubmit={handleInsertSupabase}>
+                    <label htmlFor="">Blog title:</label>
+                    <input
+                        type="text"
+                        required
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <label htmlFor="">Blog body:</label>
+                    <textarea
+                        required
+                        value={body}
+                        onChange={(e) => setBody(e.target.value)}
+                    ></textarea>
+                    <label htmlFor="">Blog author:</label>
+                    <select
+                        value={author}
+                        onChange={(e) => setAuthor(e.target.value)}
+                    >
+                        <option value="mario">mario</option>
+                        <option value="yoshi">yoshi</option>
+                        <option value="abbott">abbott</option>
+                    </select>
+                    <nav>
+                        {!isPending && <button>Add</button>}
+                        {isPending && <button disabled>Adding...</button>}
+                        <button onClick={handleCancel}>Cancel</button>
+                    </nav>
+                </form>
+            </div>
+            <div className="materialUiButtonsSample">
+                <Button variant="text">Text</Button>
+                <Button variant="contained">Contained</Button>
+                <Button variant="outlined">Outlined</Button>
+            </div>
         </div>
     );
 

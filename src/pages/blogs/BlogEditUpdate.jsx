@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 //import { useHistory } from 'react-router-dom'; // useHistory was replaced by useNavigate in ver 6
 import { useNavigate } from 'react-router-dom';
 // import useFetch from "../../useFetch";
+import Button from 'react-bootstrap/Button';
+//import 'bootstrap/dist/css/bootstrap.min.css'; <-- NOTE: This impacts the whole app so not something we want to do unless we are build the whole app using bootstrap!
 
 import supabase from '../../supabaseClient';
 // import { createClient } from '@supabase/supabase-js';
@@ -125,40 +127,57 @@ const BlogEditUpdate = () => {
     };
 
     return (
-        <div className="blog-create">
-            <h2>Edit/Update a Blog!</h2>
-            <form onSubmit={handleUpdateSupabase}>
-                {isPending && <div>Loading...</div>}
-                {error && <div>{error}</div>}
-                <label htmlFor="">Blog title:</label>
-                <input
-                    type="text"
-                    required
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <label htmlFor="">Blog body:</label>
-                <textarea
-                    required
-                    value={body}
-                    onChange={(e) => setBody(e.target.value)}
-                    rows="5" cols="50"
-                ></textarea>
-                <label htmlFor="">Blog author:</label>
-                <select
-                    value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
-                >
-                    <option value="mario">mario</option>
-                    <option value="yoshi">yoshi</option>
-                    <option value="abbott">abbott</option>
-                </select>
-                <nav>
-                    {!isUpdating && <button>Update Blog</button>}
-                    {isUpdating && <button disabled>Updating Blog...</button>}
-                    <button onClick={handleCancel}>Cancel</button>
-                </nav>
-            </form>
+        <div>
+            <div className="blog-create">
+                <h2>Edit/Update a Blog!</h2>
+                <form onSubmit={handleUpdateSupabase}>
+                    {isPending && <div>Loading...</div>}
+                    {error && <div>{error}</div>}
+                    <label htmlFor="">Blog title:</label>
+                    <input
+                        type="text"
+                        required
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <label htmlFor="">Blog body:</label>
+                    <textarea
+                        required
+                        value={body}
+                        onChange={(e) => setBody(e.target.value)}
+                        rows="5" cols="50"
+                    ></textarea>
+                    <label htmlFor="">Blog author:</label>
+                    <select
+                        value={author}
+                        onChange={(e) => setAuthor(e.target.value)}
+                    >
+                        <option value="mario">mario</option>
+                        <option value="yoshi">yoshi</option>
+                        <option value="abbott">abbott</option>
+                    </select>
+                    <nav>
+                        {!isUpdating && <button>Update</button>}
+                        {isUpdating && <button disabled>Updating...</button>}
+                        <button onClick={handleCancel}>Cancel</button>
+                    </nav>
+                </form>
+            </div>
+            <div className="bootstrapButtonsSample" style={{
+                textAlign: 'center',
+                padding: 10,
+                // margin: 10,
+            }}>
+                <Button variant="primary">Primary</Button>
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="success">Success</Button>
+                <Button variant="warning">Warning</Button>
+                <Button variant="danger">Danger</Button>
+                <Button variant="info">Info</Button>
+                <Button variant="light">Light</Button>
+                <Button variant="dark">Dark</Button>
+                <Button variant="link">Link</Button>
+            </div>
         </div>
     );
 

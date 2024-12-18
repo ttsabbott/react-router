@@ -1,8 +1,12 @@
-import { useState } from 'react';
-import './HackerStories.css';
 import * as React from 'react';
+// import { useState } from 'react';
+import './HackerStories.css';
 import bookLogo from '/The Road to React.png';
 import axios from 'axios';
+import { List } from './List';
+// import { InputWithLabel } from './InputWithLabel';
+import { SearchForm } from './SearchForm';
+import LastSearches from './LastSearches';
 
 const title = 'React';
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
@@ -56,6 +60,11 @@ const HackerStories = () => {
   const [url, setUrl] = React.useState(
     `${API_ENDPOINT}${searchTerm}`
   );
+  const getUrl = (searchTerm) => `${API_ENDPOINT}${searchTerm}`;
+  const [urls, setUrls] = React.useState([
+    getUrl(searchTerm),
+    // `${API_ENDPOINT}${searchTerm}`,
+  ]);
 
   const [stories, dispatchStories] = React.useReducer(
     storiesReducer,
@@ -84,7 +93,8 @@ const HackerStories = () => {
   const handleFetchStories = React.useCallback(async () => {
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
     try {
-      const result = await axios.get(url); // This says the following code will wait until the get is complete!
+      const lastUrl = urls[urls.length - 1];
+      const result = await axios.get(lastUrl); // This says the following code will wait until the get is complete!
       dispatchStories({
         type: 'STORIES_FETCH_SUCCESS',
         payload: result.data.hits,
@@ -93,7 +103,7 @@ const HackerStories = () => {
     } catch {
       dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
     }
-  }, [url]);
+  }, [urls]);
 
   React.useEffect(() => {
     handleFetchStories();
@@ -104,43 +114,62 @@ const HackerStories = () => {
       type: 'REMOVE_STORY',
       payload: item,
     });
-  }
+  };
+
   const handleSearchInput = (event) => {
     setSearchTerm(event.target.value);
   };
+
+  const handleSearch = (searchTerm) => {
+    const url = getUrl(searchTerm);
+    setUrls(urls.concat(url));
+  };
+
   const handleSearchSubmit = (event) => {
-    setUrl(`${API_ENDPOINT}${searchTerm}`);
+    handleSearch(searchTerm);
+    // const url = `${API_ENDPOINT}${searchTerm}`;
+    // setUrls(urls.concat(url));
+    //setUrl(`${API_ENDPOINT}${searchTerm}`);
     event.preventDefault();
-  }
+  };
+
   // const handleSearch = (event) => {
   //   setSearchTerm(event.target.value);
   // };
+
   const handleClear = (event) => {
     setSearchTerm('');
     setNbrOfResults(0);
     stories.data = [];
   };
 
-  const SearchForm = ({
-    searchTerm,
-    onSearchInput,
-    onSearchSubmit,
-    onSearchClear,
-  }) => (
-    <form onSubmit={onSearchSubmit}>
-      <InputWithLabel
-        id="search"
-        value={searchTerm}
-        isFocused
-        onInputChange={onSearchInput}
-      >
-        <strong>Search:</strong>
-      </InputWithLabel>
-      <button id="submit" type="submit" disabled={!searchTerm}>Submit</button>
-      <button id="clear" type="button" disabled={!searchTerm} onClick={onSearchClear}>Clear</button>
-    </form>
-
-  );
+  const extractSearchTerm = (url) => url.replace(API_ENDPOINT, '');
+  //const getLastSearches = (urls) => urls.slice(-5).map((url) => extractSearchTerm(url));
+  //const getLastSearches = (urls) => urls.slice(-5).map(extractSearchTerm);
+  const getLastSearches = (urls) =>
+    urls
+      .reduce((result, url, index) => {
+        const searchTerm = extractSearchTerm(url);
+        if (index === 0) {
+          return result.concat(searchTerm);
+        }
+        const previousSearchTerm = result[result.length - 1];
+        if (searchTerm === previousSearchTerm) {
+          return result;
+        } else {
+          return result.concat(searchTerm);
+        }
+      }, [])
+      .slice(-6)
+      .slice(0, -1);
+  //.map(extractSearchTerm);
+  const lastSearches = getLastSearches(urls);
+  const handleLastSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    handleSearch(searchTerm);
+    // const url = `${API_ENDPOINT}${searchTerm}`;
+    // setUrls(urls.concat(url));
+  };
 
   return (
     <div>
@@ -152,6 +181,18 @@ const HackerStories = () => {
         onSearchSubmit={handleSearchSubmit}
         onSearchClear={handleClear}
       />
+      <LastSearches
+        lastSearches={lastSearches}
+        onLastSearch={handleLastSearch}
+      />
+      {/* <p>Previous Searches: 
+      {lastSearches.map((searchTerm, index) => (
+        <button
+          key={searchTerm + index}
+          type="button"
+          onClick={() => handleLastSearch(searchTerm)}>{searchTerm}</button>
+      ))}
+      </p> */}
       {/* <form onSubmit={handleSearchSubmit}>
           <InputWithLabel
             id="search"
@@ -184,76 +225,6 @@ const HackerStories = () => {
     </div>
   );
 
-};
-
-const InputWithLabel = ({
-  id,
-  value,
-  type = 'text',
-  isFocused,
-  onInputChange,
-  // onInputSubmit,
-  // onInputClear,
-  // qty,
-  children,
-}) => {
-  const inputRef = React.useRef();
-  React.useEffect(() => {
-    if (isFocused && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isFocused]);
-  return (
-    <div>
-      {/* Note: <> + </> is the shorthand abbreviation of a React.Fragment */}
-      <label htmlFor={id}>{children}</label>
-      &nbsp;
-      <input
-        ref={inputRef}
-        id={id}
-        type={type}
-        value={value}
-        onChange={onInputChange}
-      />
-      {/* <button id="submit" type="button" disabled={!value} onClick={onInputSubmit}>Submit</button> */}
-      {/* <button id="clear" type="button" disabled={!value} onClick={onInputClear}>Clear</button> */}
-      {/* <p>
-          Searching for <strong>{value}</strong>
-        </p> */}
-      {/* <p>
-          Number of results found <strong>{qty}</strong>
-        </p> */}
-    </div>
-  );
-};
-
-const List = ({ list, onRemoveItem }) => (
-  <ul>
-    {list.map((item) => (
-      <Item key={item.objectID} item={item} onRemoveItem={onRemoveItem} />
-    ))}
-  </ul>
-);
-
-const Item = ({ item, onRemoveItem }) => {
-  return (
-    <li key={item.objectID}>
-      <span>
-        <a href={item.url} target="_blank">{item.title}</a>
-      </span>
-      <span>{item.author}</span>
-      <span>{item.num_comments}</span>
-      <span>{item.points}</span>
-      <span>
-        {/* Fourth version, inline arrow function, doesn't need the additional handler, uses javascript bind function, but has block body */}
-        <button type="button" className="sm-btn" onClick={() => {
-          // do something else
-          // note: avoid using complex logix in JSX
-          onRemoveItem(item);
-        }}>Dismiss</button>
-      </span>
-    </li>
-  );
 };
 
 export default HackerStories;
