@@ -8,10 +8,9 @@ import { List } from './List';
 import { SearchForm } from './SearchForm';
 import LastSearches from './LastSearches';
 
-const title = 'React';
-const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
-
 const HackerStories = () => {
+
+  const title = 'React';
 
   const storiesReducer = (state, action) => {
     switch (action.type) {
@@ -26,7 +25,10 @@ const HackerStories = () => {
           ...state,
           isLoading: false,
           isError: false,
-          data: action.payload
+          data: action.payload.page === 0
+            ? action.payload.list
+            : state.data.concat(action.payload.list),
+          page: action.payload.page,
         };
       case 'STORIES_FETCH_FAILURE':
         return {
@@ -55,23 +57,36 @@ const HackerStories = () => {
     }, [value, key]);
     return [value, setValue];
   };
+
+  //const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
+  const API_BASE = 'https://hn.algolia.com/api/v1';
+  const API_SEARCH = '/search';
+  const PARAM_SEARCH = 'query=';
+  const PARAM_PAGE = 'page=';
+  //const getUrl = (searchTerm) => `${API_ENDPOINT}${searchTerm}`;
+  const getUrl = (searchTerm, page) =>
+    `${API_BASE}${API_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`;
+
   const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
   const [nbrOfResults, setNbrOfResults] = useStorageState('qty', 0);
-  const [url, setUrl] = React.useState(
-    `${API_ENDPOINT}${searchTerm}`
-  );
-  const getUrl = (searchTerm) => `${API_ENDPOINT}${searchTerm}`;
+
+  // const [url, setUrl] = React.useState(
+  //   getUrl(searchTerm)
+  //   //`${API_ENDPOINT}${searchTerm}`
+  // );
+
   const [urls, setUrls] = React.useState([
-    getUrl(searchTerm),
+    getUrl(searchTerm, 0), // since this is the initiation of the search, we start at page 0
     // `${API_ENDPOINT}${searchTerm}`,
   ]);
 
   const [stories, dispatchStories] = React.useReducer(
     storiesReducer,
-    { data: [], isLoading: false, isError: false }
+    { data: [], page: 0, isLoading: false, isError: false }
   );
 
   // TODO Why is this being called twice? On initial load and when submitted...
+  /*
   const XhandleFetchStories = React.useCallback(() => {
     if (!searchTerm) return;
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
@@ -88,6 +103,7 @@ const HackerStories = () => {
         dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
       );
   }, [url]);
+  */
 
   // Using async/await & try/catch, the handleFetchStories now looks like this...
   const handleFetchStories = React.useCallback(async () => {
@@ -97,7 +113,10 @@ const HackerStories = () => {
       const result = await axios.get(lastUrl); // This says the following code will wait until the get is complete!
       dispatchStories({
         type: 'STORIES_FETCH_SUCCESS',
-        payload: result.data.hits,
+        payload: {
+          list: result.data.hits,
+          page: result.data.page,
+        },
       });
       setNbrOfResults(result.data.nbHits); // Update number of results!
     } catch {
@@ -120,13 +139,13 @@ const HackerStories = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearch = (searchTerm) => {
-    const url = getUrl(searchTerm);
+  const handleSearch = (searchTerm, page) => {
+    const url = getUrl(searchTerm, page);
     setUrls(urls.concat(url));
   };
 
   const handleSearchSubmit = (event) => {
-    handleSearch(searchTerm);
+    handleSearch(searchTerm, 0);
     // const url = `${API_ENDPOINT}${searchTerm}`;
     // setUrls(urls.concat(url));
     //setUrl(`${API_ENDPOINT}${searchTerm}`);
@@ -143,7 +162,12 @@ const HackerStories = () => {
     stories.data = [];
   };
 
-  const extractSearchTerm = (url) => url.replace(API_ENDPOINT, '');
+  //const extractSearchTerm = (url) => url.replace(API_ENDPOINT, '');
+  //const extractSearchTerm = (url) => url.replace(API_BASE + API_SEARCH, '');
+  const extractSearchTerm = (url) =>
+    url
+      .substring(url.lastIndexOf('?') + 1, url.lastIndexOf('&'))
+      .replace(PARAM_SEARCH, '');
   //const getLastSearches = (urls) => urls.slice(-5).map((url) => extractSearchTerm(url));
   //const getLastSearches = (urls) => urls.slice(-5).map(extractSearchTerm);
   const getLastSearches = (urls) =>
@@ -166,10 +190,16 @@ const HackerStories = () => {
   const lastSearches = getLastSearches(urls);
   const handleLastSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
-    handleSearch(searchTerm);
+    handleSearch(searchTerm, 0);
     // const url = `${API_ENDPOINT}${searchTerm}`;
     // setUrls(urls.concat(url));
   };
+
+  const handleMore = () => {
+    const lastUrl = urls[urls.length - 1];
+    const searchTerm = extractSearchTerm(lastUrl);
+    handleSearch(searchTerm, stories.page + 1);
+  }
 
   return (
     <div>
@@ -212,16 +242,19 @@ const HackerStories = () => {
         Searching for <strong>{searchTerm}</strong>
       </p>
       {stories.isError && <p>Something went wrong...</p>}
-      {stories.isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          <p>
-            Number of results found <strong>{nbrOfResults.toLocaleString()}</strong>
-          </p>
-          <List list={stories.data} onRemoveItem={handleRemoveStory} />
-        </div>
-      )}
+      <div>
+        <p>
+          Number of results found <strong>{nbrOfResults.toLocaleString()}</strong>
+        </p>
+        <List list={stories.data} onRemoveItem={handleRemoveStory} />
+        {stories.isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <button type="button" onClick={handleMore}>
+            More
+          </button>
+        )}
+      </div>
     </div>
   );
 
