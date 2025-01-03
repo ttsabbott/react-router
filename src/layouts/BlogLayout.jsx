@@ -7,8 +7,8 @@ export default function BlogLayout() {
     return (
         <div className="help-layout">
             {/* <div className="blog-css"> */}
-            <h2>Blog layout</h2>
-            <p>Placeholder...</p>
+            {/* <h2>Blog layout</h2>
+            <p>Placeholder...</p> */}
             <BlogNavBar />
             {/* <nav>
                 <NavLink to="bloghome">Blog Home</NavLink>

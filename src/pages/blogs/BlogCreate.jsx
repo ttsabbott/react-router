@@ -113,11 +113,11 @@ const BlogCreate = () => {
                     </nav>
                 </form>
             </div>
-            <div className="materialUiButtonsSample">
+            {/* <div className="materialUiButtonsSample">
                 <Button variant="text">Text</Button>
                 <Button variant="contained">Contained</Button>
                 <Button variant="outlined">Outlined</Button>
-            </div>
+            </div> */}
         </div>
     );
 
