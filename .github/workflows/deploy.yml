@@ -25,6 +25,7 @@ jobs:
         env:
           VITE_SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_KEY }}
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_NOAAWEATHER_URL: ${{ secrets.VITE_NOAAWEATHER_URL }}
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
