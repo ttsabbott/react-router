@@ -1,4 +1,4 @@
-import { useState } from "react";
+import * as React from 'react';
 
 import useFetch from "../../useFetch";
 
@@ -32,7 +32,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 
 const WeatherBody = ({ currentLocation, pointsData }) => {
 
-    // console.log('currentLocation -> ' + JSON.stringify(currentLocation, null, 4));
+    console.log('currentLocation -> ' + JSON.stringify(currentLocation, null, 4));
 
     const theme = createTheme({
         palette: {
@@ -48,10 +48,9 @@ const WeatherBody = ({ currentLocation, pointsData }) => {
         // },
     });
 
-    // const [forecastUrl, setForecastUrl] = useState(import.meta.env.VITE_NOAAWEATHER_URL + '/gridpoints/' + pointsData.properties.gridId + '/' + pointsData.properties.gridX + ',' + pointsData.properties.gridY + '/forecast');
     const forecastUrl = import.meta.env.VITE_NOAAWEATHER_URL + '/gridpoints/' + pointsData.properties.gridId + '/' + pointsData.properties.gridX + ',' + pointsData.properties.gridY + '/forecast';
     const headers = { 'User-Agent': '(ttsabbott.com, ttsabbott@gmail.com)' };
-    const { data: forecastData, isPending: forecastIsPending, error: forecastError } = useFetch(forecastUrl, headers);
+    const { data: forecastData, isPending, error } = useFetch(forecastUrl, headers);
 
     return (
         <ThemeProvider theme={theme}>
@@ -76,8 +75,8 @@ const WeatherBody = ({ currentLocation, pointsData }) => {
                         gap: 4,
                     }}>
                     <Grid container spacing={{ xs: 2, sm: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        {forecastIsPending && <div>Loading forecast...</div>}
-                        {forecastError && <div>{forecastError}</div>}
+                        {isPending && <div>Loading forecast...</div>}
+                        {error && <div>{error}</div>}
                         {forecastData &&
                             (forecastData.properties.periods.map((period, index, array) => (
                                 <>

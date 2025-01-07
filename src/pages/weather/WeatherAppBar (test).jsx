@@ -1,22 +1,20 @@
-import { useState } from "react";
+import * as React from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-import AcUnit from '@mui/icons-material/AcUnit';
-// import Add from '@mui/icons-material/Add';
+import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import AcUnit from '@mui/icons-material/AcUnit';
 
-const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData, pointsIsPending, pointsError }) => {
+const WeatherAppBar = ({ locations, currentLocation, setCurrentLocation }) => {
 
-    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -25,19 +23,19 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
     const handleCloseNavMenu = (event) => {
         const button = event.currentTarget;
         const buttonText = button.textContent;
-        // console.log(buttonText);
+        console.log(buttonText);
+        console.log('currentLocation before -> ' + JSON.stringify(currentLocation, null, 4));
         locations.forEach(location => {
-            // console.log('before -> ' + JSON.stringify(location, null, 4));
+            console.log('before -> ' + JSON.stringify(location, null, 4));
             location.selected = (location.title === buttonText);
             if (location.selected) {
                 setCurrentLocation(location);
-                setPointsUrl(import.meta.env.VITE_NOAAWEATHER_URL + '/points/' + location.lat + ',' + location.long);
-                pointsIsPending = true;
-                pointsError = null;
-                pointsData = null;
+                // setPointsUrl(import.meta.env.VITE_NOAAWEATHER_URL + '/points/' + location.lat + ',' + location.long);
+                // pointsData = null;
             }
-            // console.log('after --> ' + JSON.stringify(location, null, 4));
+            console.log('after --> ' + JSON.stringify(location, null, 4));
         });
+        console.log('currentLocation after --> ' + JSON.stringify(currentLocation, null, 4));
         setAnchorElNav(null);
     };
 
@@ -47,7 +45,7 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                 <Toolbar disableGutters>
 
                     <AcUnit sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-
+                    {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
                     <Typography
                         variant="h6"
                         noWrap
@@ -69,7 +67,7 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
-                            aria-label="locations"
+                            aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
@@ -92,28 +90,25 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{ display: { xs: 'block', md: 'none' } }}
-                            // TODO Need to learn how to change the selected menu item's background color!
-                            // Globally, I handled it within the Weather.css file, but there must be a better way...
-                            // .css-1rju2q6-MuiButtonBase-root-MuiMenuItem-root.Mui-selected { background-color: yellow; }
                         >
-                            {locations.map((location) => (
-                                <MenuItem key={location.title} onClick={handleCloseNavMenu} selected={location.selected}>
-                                    <Typography sx={{ textAlign: 'center', color: 'text.primary', }}>{location.title}</Typography>
-                                </MenuItem>
-                            ))}
-                            {/* <MenuItem key="add" onClick={handleCloseNavMenu}>
-                                <Add sx={{ color: 'text.primary', bgcolor: 'text.secondary', }} />
-                            </MenuItem> */}
+                            {locations.map((location) => {
+                                console.log('menu -> ' + JSON.stringify(location, null, 4));
+                                return (
+                                    <MenuItem key={location.title} onClick={handleCloseNavMenu}>
+                                        <Typography sx={{ textAlign: 'center' }}>{location.title}</Typography>
+                                    </MenuItem>
+                                )
+                            })}
                         </Menu>
                     </Box>
 
                     <AcUnit sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-
+                    {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
                     <Typography
                         variant="h5"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        // href="#app-bar-with-responsive-menu"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -127,29 +122,26 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                     >
                         Weather
                     </Typography>
-
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', } }}>
-                        {locations.map((location) => (
-                            <Button
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        {locations.map((location) => {
+                            console.log('box --> ' + JSON.stringify(location, null, 4));
+                            return (
+                                <Button
                                 key={location.title}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block', }}
                                 variant={location.selected ? "contained" : "text"}
-                                // color={location.selected ? "primary" : "secondary"}
+                                color={location.selected ? "primary" : "secondary"}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {location.title}
                             </Button>
-                        ))}
-                        {/* <Button key="add" onClick={handleCloseNavMenu}>
-                            <Add sx={{ mr: 1, color: 'text.primary', }} />
-                        </Button> */}
+                            )
+                        })}
                     </Box>
-
                 </Toolbar>
             </Container>
         </AppBar>
     );
-
 };
 
 export default WeatherAppBar;

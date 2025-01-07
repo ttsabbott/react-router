@@ -1,22 +1,71 @@
-import { useState } from "react";
+import * as React from 'react';
 
 import AppBar from '@mui/material/AppBar';
+// import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
+// import InputBase from '@mui/material/InputBase';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
+// import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
+// import { styled, alpha } from '@mui/material/styles';
+
 import AcUnit from '@mui/icons-material/AcUnit';
-// import Add from '@mui/icons-material/Add';
+// import AdbIcon from '@mui/icons-material/Adb';
+import Add from '@mui/icons-material/Add';
 import MenuIcon from '@mui/icons-material/Menu';
+// import SearchIcon from '@mui/icons-material/Search';
 
-const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData, pointsIsPending, pointsError }) => {
+// const Search = styled('div')(({ theme }) => ({
+//     position: 'relative',
+//     borderRadius: theme.shape.borderRadius,
+//     backgroundColor: alpha(theme.palette.common.white, 0.15),
+//     '&:hover': {
+//         backgroundColor: alpha(theme.palette.common.white, 0.25),
+//     },
+//     marginLeft: 0,
+//     width: '100%',
+//     [theme.breakpoints.up('sm')]: {
+//         marginLeft: theme.spacing(1),
+//         width: 'auto',
+//     },
+// }));
 
-    const [anchorElNav, setAnchorElNav] = useState(null);
+// const SearchIconWrapper = styled('div')(({ theme }) => ({
+//     padding: theme.spacing(0, 2),
+//     height: '100%',
+//     position: 'absolute',
+//     pointerEvents: 'none',
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+// }));
+
+// const StyledInputBase = styled(InputBase)(({ theme }) => ({
+//     color: 'inherit',
+//     width: '100%',
+//     '& .MuiInputBase-input': {
+//         padding: theme.spacing(1, 1, 1, 0),
+//         // vertical padding + font size from searchIcon
+//         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+//         transition: theme.transitions.create('width'),
+//         [theme.breakpoints.up('sm')]: {
+//             width: '12ch',
+//             '&:focus': {
+//                 width: '20ch',
+//             },
+//         },
+//     },
+// }));
+
+const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData }) => {
+
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -25,18 +74,16 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
     const handleCloseNavMenu = (event) => {
         const button = event.currentTarget;
         const buttonText = button.textContent;
-        // console.log(buttonText);
+        console.log(buttonText);
         locations.forEach(location => {
-            // console.log('before -> ' + JSON.stringify(location, null, 4));
+            //console.log('before -> ' + JSON.stringify(location, null, 4));
             location.selected = (location.title === buttonText);
             if (location.selected) {
                 setCurrentLocation(location);
                 setPointsUrl(import.meta.env.VITE_NOAAWEATHER_URL + '/points/' + location.lat + ',' + location.long);
-                pointsIsPending = true;
-                pointsError = null;
                 pointsData = null;
             }
-            // console.log('after --> ' + JSON.stringify(location, null, 4));
+            //console.log('after --> ' + JSON.stringify(location, null, 4));
         });
         setAnchorElNav(null);
     };
@@ -92,18 +139,15 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{ display: { xs: 'block', md: 'none' } }}
-                            // TODO Need to learn how to change the selected menu item's background color!
-                            // Globally, I handled it within the Weather.css file, but there must be a better way...
-                            // .css-1rju2q6-MuiButtonBase-root-MuiMenuItem-root.Mui-selected { background-color: yellow; }
                         >
                             {locations.map((location) => (
                                 <MenuItem key={location.title} onClick={handleCloseNavMenu} selected={location.selected}>
                                     <Typography sx={{ textAlign: 'center', color: 'text.primary', }}>{location.title}</Typography>
                                 </MenuItem>
                             ))}
-                            {/* <MenuItem key="add" onClick={handleCloseNavMenu}>
+                            <MenuItem key="add" onClick={handleCloseNavMenu}>
                                 <Add sx={{ color: 'text.primary', bgcolor: 'text.secondary', }} />
-                            </MenuItem> */}
+                            </MenuItem>
                         </Menu>
                     </Box>
 
@@ -135,15 +179,25 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block', }}
                                 variant={location.selected ? "contained" : "text"}
-                                // color={location.selected ? "primary" : "secondary"}
+                                color={location.selected ? "primary" : "secondary"}
                             >
                                 {location.title}
                             </Button>
                         ))}
-                        {/* <Button key="add" onClick={handleCloseNavMenu}>
+                        <Button key="add" onClick={handleCloseNavMenu}>
                             <Add sx={{ mr: 1, color: 'text.primary', }} />
-                        </Button> */}
+                        </Button>
                     </Box>
+
+                    {/* <Search>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </Search> */}
 
                 </Toolbar>
             </Container>
