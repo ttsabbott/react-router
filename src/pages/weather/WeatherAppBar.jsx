@@ -26,18 +26,20 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
         const button = event.currentTarget;
         const buttonText = button.textContent;
         // console.log(buttonText);
-        locations.forEach(location => {
-            // console.log('before -> ' + JSON.stringify(location, null, 4));
-            location.selected = (location.title === buttonText);
-            if (location.selected) {
-                setCurrentLocation(location);
-                setPointsUrl(import.meta.env.VITE_NOAAWEATHER_URL + '/points/' + location.lat + ',' + location.long);
-                pointsIsPending = true;
-                pointsError = null;
-                pointsData = null;
-            }
-            // console.log('after --> ' + JSON.stringify(location, null, 4));
-        });
+        if (buttonText) {
+            locations.forEach(location => {
+                // console.log('before -> ' + JSON.stringify(location, null, 4));
+                location.selected = (location.title === buttonText);
+                if (location.selected) {
+                    setCurrentLocation(location);
+                    setPointsUrl(import.meta.env.VITE_NOAAWEATHER_URL + '/points/' + location.lat + ',' + location.long);
+                    pointsIsPending = true;
+                    pointsError = null;
+                    pointsData = null;
+                }
+                // console.log('after --> ' + JSON.stringify(location, null, 4));
+            });
+        }
         setAnchorElNav(null);
     };
 
@@ -92,9 +94,9 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{ display: { xs: 'block', md: 'none' } }}
-                            // TODO Need to learn how to change the selected menu item's background color!
-                            // Globally, I handled it within the Weather.css file, but there must be a better way...
-                            // .css-1rju2q6-MuiButtonBase-root-MuiMenuItem-root.Mui-selected { background-color: yellow; }
+                        // TODO Need to learn how to change the selected menu item's background color!
+                        // Globally, I handled it within the Weather.css file, but there must be a better way...
+                        // .css-1rju2q6-MuiButtonBase-root-MuiMenuItem-root.Mui-selected { background-color: yellow; }
                         >
                             {locations.map((location) => (
                                 <MenuItem key={location.title} onClick={handleCloseNavMenu} selected={location.selected}>
@@ -135,7 +137,7 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block', }}
                                 variant={location.selected ? "contained" : "text"}
-                                // color={location.selected ? "primary" : "secondary"}
+                            // color={location.selected ? "primary" : "secondary"}
                             >
                                 {location.title}
                             </Button>
