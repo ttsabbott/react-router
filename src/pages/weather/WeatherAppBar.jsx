@@ -51,9 +51,9 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                     <AcUnit sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
 
                     <Typography
-                        variant="h6"
+                        variant="h5"
                         noWrap
-                        component="a"
+                        // component="a"
                         // href="#app-bar-with-responsive-menu"
                         sx={{
                             mr: 2,
@@ -114,8 +114,8 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                     <Typography
                         variant="h5"
                         noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
+                        // component="a"
+                        // href="#app-bar-with-responsive-menu"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
