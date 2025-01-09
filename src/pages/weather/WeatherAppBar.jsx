@@ -137,7 +137,6 @@ const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block', }}
                                 variant={location.selected ? "contained" : "text"}
-                            // color={location.selected ? "primary" : "secondary"}
                             >
                                 {location.title}
                             </Button>
