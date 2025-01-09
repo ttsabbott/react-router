@@ -13,6 +13,8 @@ const Weather = () => {
     { title: 'Tucson, AZ', selected: true, lat: 32.3060372, long: -111.0592288, },
     { title: 'Sedona, AZ', selected: false, lat: 34.869712, long: -111.760902, },
     { title: 'Delray Beach, FL', selected: false, lat: 26.455965, long: -80.102383, },
+    { title: 'Minster, OH', selected: false, lat: 40.393023, long: -84.37667, },
+    { title: 'Springfield, MO', selected: false, lat: 37.2155, long: -93.2924, },
   ]);
 
   const [currentLocation, setCurrentLocation] = useState(locations[0]); // Default to first entry of locations array
