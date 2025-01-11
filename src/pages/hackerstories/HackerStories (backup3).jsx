@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect, useReducer, useRef } from 'react';
 import './App.css';
-import * as React from 'react';
 import bookLogo from './assets/The Road to React.png';
 
 const title = 'React';
@@ -77,25 +76,25 @@ const App = () => {
   }
 
   const useStorageState = (key, initialState) => {
-    const [value, setValue] = React.useState(
+    const [value, setValue] = useState(
       localStorage.getItem(key) || initialState
     );
-    React.useEffect(() => {
+    useEffect(() => {
       localStorage.setItem(key, value);
     }, [value, key]);
     return [value, setValue];
   };
   const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
 
-  //const [stories, setStories] = React.useState([]); // initialStories);
-  const [stories, dispatchStories] = React.useReducer(
+  //const [stories, setStories] = useState([]); // initialStories);
+  const [stories, dispatchStories] = useReducer(
     storiesReducer,
     { data: [], isLoading: false, isError: false } // []
   );
-  // const [isLoading, setIsLoading] = React.useState(false);
-  // const [isError, setIsError] = React.useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [isError, setIsError] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // setIsLoading(true);
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
     getAsyncStories().then(result => {
@@ -127,10 +126,10 @@ const App = () => {
     // setStories(newStories);
   }
 
-  // const [searchTerm, setSearchTerm] = React.useState(
+  // const [searchTerm, setSearchTerm] = useState(
   //   localStorage.getItem('search') || 'React'
   // );
-  // React.useEffect(() => {
+  // useEffect(() => {
   //   localStorage.setItem('search', searchTerm);
   // }, [searchTerm]);
   const handleSearch = (event) => {
@@ -148,13 +147,13 @@ const App = () => {
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const [toggle, setToggle] = React.useState(true);
+  const [toggle, setToggle] = useState(true);
   const handleToggle = () => {
     setToggle(!toggle);
   };
 
-  // const [timer, setTimer] = React.useState(0);
-  // React.useEffect(() => {
+  // const [timer, setTimer] = useState(0);
+  // useEffect(() => {
   //   // const interval = setInterval(
   //   //   () => setTimer(timer + 1),
   //   //   1000
@@ -198,22 +197,22 @@ const App = () => {
 };
 
 const Toggler = ({ toggle, onToggle }) => {
-  // React.useEffect(() => {
+  // useEffect(() => {
   //   console.log('I run on every render: mount + update.');
   // }); // Note: no second parameter, runs on every render!
-  // React.useEffect(() => {
+  // useEffect(() => {
   //   console.log('I run only on the first render: mount.');
   // }, []); // Note: empty array second parm, which means it will only run on the first render!
-  const didMount = React.useRef(false);
-  const calledOnce = React.useRef(false);
-  const [title, setTitle] = React.useState('Hello React');
-  React.useEffect(() => {
+  const didMount = useRef(false);
+  const calledOnce = useRef(false);
+  const [title, setTitle] = useState('Hello React');
+  useEffect(() => {
     console.log('I run if toggle or title change (and on mount).');
   }, [toggle, title]);
   const handleChange = (event) => {
     setTitle(event.target.value);
   };
-  React.useEffect(() => {
+  useEffect(() => {
     // console.log('I run only if toggle changes (and on mount).');
     // if (didMount.current) {
     //   console.log('I run only if toggle changes.');
@@ -251,7 +250,7 @@ const InputWithLabel2 = ({
   onInputClear,
   children,
 }) => (
-  <React.Fragment>
+  <>
     <label htmlFor={id}>{children}</label>
     &nbsp;
     <input
@@ -264,7 +263,7 @@ const InputWithLabel2 = ({
     <p>
       Searching for <strong>{value}</strong>
     </p>
-  </React.Fragment>
+  </>
 );
 
 const InputWithLabel3 = ({
@@ -303,9 +302,9 @@ const InputWithLabel = ({
   children,
 }) => {
   // A
-  const inputRef = React.useRef();
+  const inputRef = useRef();
   // C
-  React.useEffect(() => {
+  useEffect(() => {
     if (isFocused && inputRef.current) {
       // D
       inputRef.current.focus();

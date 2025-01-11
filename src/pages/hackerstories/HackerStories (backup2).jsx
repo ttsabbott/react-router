@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import * as React from 'react';
 
 const title = 'React';
 
@@ -34,7 +33,7 @@ const App = () => {
       objectId: 1,
     },
   ];
-  const [searchTerm, setSearchTerm] = React.useState('React');
+  const [searchTerm, setSearchTerm] = useState('React');
   // A
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);

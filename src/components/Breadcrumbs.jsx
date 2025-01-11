@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function Breadcrumbs() {
@@ -8,7 +7,7 @@ export default function Breadcrumbs() {
     let currentLink = '';
     const crumbs = location.pathname.split('/')
         .filter(crumb => crumb !== '')
-        .map(crumb => { 
+        .map(crumb => {
             currentLink += `/${crumb}`
             return (
                 <div className="crumb" key={crumb}>

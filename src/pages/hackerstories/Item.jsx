@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 export const Item = ({ item, onRemoveItem }) => {
   return (
     <li style={{ display: 'flex' }} key={item.objectID}>

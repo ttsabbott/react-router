@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useReducer, useRef, useCallback } from 'react';
+
 import './App.css';
-import * as React from 'react';
+
 import bookLogo from './assets/The Road to React.png';
 
 const title = 'React';
@@ -63,27 +64,27 @@ const App = () => {
   }
 
   const useStorageState = (key, initialState) => {
-    const [value, setValue] = React.useState(
+    const [value, setValue] = useState(
       localStorage.getItem(key) || initialState
     );
-    React.useEffect(() => {
+    useEffect(() => {
       localStorage.setItem(key, value);
     }, [value, key]);
     return [value, setValue];
   };
   const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
   const [nbrOfResults, setNbrOfResults] = useStorageState('qty', 0);
-  const [url, setUrl] = React.useState(
+  const [url, setUrl] = useState(
     `${API_ENDPOINT}${searchTerm}`
   );
 
-  const [stories, dispatchStories] = React.useReducer(
+  const [stories, dispatchStories] = useReducer(
     storiesReducer,
     { data: [], isLoading: false, isError: false } // []
   );
 
   // TODO Why is this being called twice? On initial load and when submitted...
-  const handleFetchStories = React.useCallback(() => {
+  const handleFetchStories = useCallback(() => {
     if (!searchTerm) return;
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
     fetch(url)
@@ -106,7 +107,7 @@ const App = () => {
       );
   }, [url]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     handleFetchStories();
   }, [handleFetchStories]);
 
@@ -135,7 +136,7 @@ const App = () => {
   //   story.title.toLowerCase().includes(searchTerm.toLowerCase())
   // );
 
-  // const [toggle, setToggle] = React.useState(true);
+  // const [toggle, setToggle] = useState(true);
   // const handleToggle = () => {
   //   setToggle(!toggle);
   // };
@@ -169,16 +170,16 @@ const App = () => {
 
 /*
 const Toggler = ({ toggle, onToggle }) => {
-  const didMount = React.useRef(false);
-  const calledOnce = React.useRef(false);
-  const [title, setTitle] = React.useState('Hello React');
-  React.useEffect(() => {
+  const didMount = useRef(false);
+  const calledOnce = useRef(false);
+  const [title, setTitle] = useState('Hello React');
+  useEffect(() => {
     console.log('I run if toggle or title change (and on mount).');
   }, [toggle, title]);
   const handleChange = (event) => {
     setTitle(event.target.value);
   };
-  React.useEffect(() => {
+  useEffect(() => {
     if (calledOnce.current) {
       return;
     }
@@ -210,8 +211,8 @@ const InputWithLabel = ({
   qty,
   children,
 }) => {
-  const inputRef = React.useRef();
-  React.useEffect(() => {
+  const inputRef = useRef();
+  useEffect(() => {
     if (isFocused && inputRef.current) {
       inputRef.current.focus();
     }

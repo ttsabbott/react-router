@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useRef, useEffect } from 'react';
 
 export const InputWithLabel = ({
   id, value, type = 'text', isFocused, onInputChange,
@@ -7,15 +7,14 @@ export const InputWithLabel = ({
   // qty,
   children,
 }) => {
-  const inputRef = React.useRef();
-  React.useEffect(() => {
+  const inputRef = useRef();
+  useEffect(() => {
     if (isFocused && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isFocused]);
   return (
     <div>
-      {/* Note: <> + </> is the shorthand abbreviation of a React.Fragment */}
       <label htmlFor={id}>{children}</label>
       &nbsp;
       <input

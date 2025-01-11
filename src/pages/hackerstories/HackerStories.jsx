@@ -1,5 +1,5 @@
-import * as React from 'react';
-// import { useState } from 'react';
+import { useState, useEffect, useReducer, useRef, useCallback } from 'react';
+
 import './HackerStories.css';
 import bookLogo from '/The Road to React.png';
 import axios from 'axios';
@@ -49,10 +49,10 @@ const HackerStories = () => {
   }
 
   const useStorageState = (key, initialState) => {
-    const [value, setValue] = React.useState(
+    const [value, setValue] = useState(
       localStorage.getItem(key) || initialState
     );
-    React.useEffect(() => {
+    useEffect(() => {
       localStorage.setItem(key, value);
     }, [value, key]);
     return [value, setValue];
@@ -70,24 +70,24 @@ const HackerStories = () => {
   const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
   const [nbrOfResults, setNbrOfResults] = useStorageState('qty', 0);
 
-  // const [url, setUrl] = React.useState(
+  // const [url, setUrl] = useState(
   //   getUrl(searchTerm)
   //   //`${API_ENDPOINT}${searchTerm}`
   // );
 
-  const [urls, setUrls] = React.useState([
+  const [urls, setUrls] = useState([
     getUrl(searchTerm, 0), // since this is the initiation of the search, we start at page 0
     // `${API_ENDPOINT}${searchTerm}`,
   ]);
 
-  const [stories, dispatchStories] = React.useReducer(
+  const [stories, dispatchStories] = useReducer(
     storiesReducer,
     { data: [], page: 0, isLoading: false, isError: false }
   );
 
   // TODO Why is this being called twice? On initial load and when submitted...
   /*
-  const XhandleFetchStories = React.useCallback(() => {
+  const XhandleFetchStories = useCallback(() => {
     if (!searchTerm) return;
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
     fetch(url)
@@ -106,7 +106,7 @@ const HackerStories = () => {
   */
 
   // Using async/await & try/catch, the handleFetchStories now looks like this...
-  const handleFetchStories = React.useCallback(async () => {
+  const handleFetchStories = useCallback(async () => {
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
     try {
       const lastUrl = urls[urls.length - 1];
@@ -124,7 +124,7 @@ const HackerStories = () => {
     }
   }, [urls]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     handleFetchStories();
   }, [handleFetchStories]);
 
@@ -215,7 +215,7 @@ const HackerStories = () => {
         lastSearches={lastSearches}
         onLastSearch={handleLastSearch}
       />
-      {/* <p>Previous Searches: 
+      {/* <p>Previous Searches:
       {lastSearches.map((searchTerm, index) => (
         <button
           key={searchTerm + index}

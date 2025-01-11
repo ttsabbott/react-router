@@ -1,9 +1,10 @@
-import * as React from 'react';
+import { useState } from 'react';
+
 import { Item } from './Item';
 import { SORTS } from './SORTS';
 
 export const List = ({ list, onRemoveItem }) => {
-  const [sort, setSort] = React.useState({
+  const [sort, setSort] = useState({
     sortKey: 'NONE',
     isReverse: false,
   });

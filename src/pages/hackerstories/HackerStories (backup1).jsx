@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import * as React from 'react';
 
 const title = 'React';
 
@@ -53,7 +52,7 @@ const App = () => {
       objectId: 1,
     },
   ];
-  const [searchTerm, setSearchTerm] = React.useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   // A
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -79,7 +78,7 @@ const App = () => {
 };
 
 const Search = (props) => {
-  // const [searchTerm, setSearchTerm] = React.useState('');
+  // const [searchTerm, setSearchTerm] = useState('');
   //let searchTerm = '';
   // const handleChange = (event) => {
   //   // setSearchTerm(event.target.value);

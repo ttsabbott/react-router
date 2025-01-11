@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 import './Weather.css';
 
@@ -21,13 +21,13 @@ import WeatherBody from './WeatherBody';
 
 const Weather = () => {
 
-  const [locations, setLocations] = React.useState([
+  const [locations, setLocations] = useState([
     { title: 'Tucson, AZ', selected: true, lat: 32.3060372, long: -111.0592288 },
     { title: 'Sedona, AZ', selected: false, lat: 34.869712, long: -111.760902 },
     { title: 'Delray Beach, FL', selected: false, lat: 26.455965, long: -80.102383 },
   ]);
 
-  const [currentLocation, setCurrentLocation] = React.useState(locations[0]); // Default to first entry of locations array
+  const [currentLocation, setCurrentLocation] = useState(locations[0]); // Default to first entry of locations array
 
   return (
     <Paper>

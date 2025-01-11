@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 import AppBar from '@mui/material/AppBar';
 // import Avatar from '@mui/material/Avatar';
@@ -65,7 +65,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 const WeatherAppBar = ({ locations, setCurrentLocation, setPointsUrl, pointsData }) => {
 
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElNav, setAnchorElNav] = useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { InputWithLabel } from './InputWithLabel';
 
 export const SearchForm = ({
@@ -21,6 +20,5 @@ export const SearchForm = ({
     </form>
 
 );
-
 
 // export default SearchForm;

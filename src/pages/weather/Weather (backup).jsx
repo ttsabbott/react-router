@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 import './Weather.css';
 
@@ -21,7 +21,7 @@ import WeatherBody from './WeatherBody';
 
 const Weather = () => {
 
-  // const [searchTerm, setSearchTerm] = React.useState('');
+  // const [searchTerm, setSearchTerm] = useState('');
   // const handleSearch = (event) => {
   //   setSearchTerm(event.target.value);
   //   console.log('inside App.handleSearch, event.target.value: ' + event.target.value);
@@ -36,9 +36,9 @@ const Weather = () => {
     { title: 'Delray Beach, FL', selected: false, lat: 26.455965, long: -80.102383, },
   ];
 
-  const [currentLocation, setCurrentLocation] = React.useState(locations[0]); // Default to first entry of locations array
+  const [currentLocation, setCurrentLocation] = useState(locations[0]); // Default to first entry of locations array
 
-  const [pointsUrl, setPointsUrl] = React.useState(import.meta.env.VITE_NOAAWEATHER_URL + '/points/' + currentLocation.lat + ',' + currentLocation.long);
+  const [pointsUrl, setPointsUrl] = useState(import.meta.env.VITE_NOAAWEATHER_URL + '/points/' + currentLocation.lat + ',' + currentLocation.long);
   const headers = { 'User-Agent': '(ttsabbott.com, ttsabbott@gmail.com)' };
   const { data: pointsData, isPending, error } = useFetch(pointsUrl, headers);
 
@@ -397,7 +397,7 @@ const Search = ({ search, onSearch, onClear, props }) => {
 
 /*
 const Search = (props) => {
-  // const [searchTerm, setSearchTerm] = React.useState('');
+  // const [searchTerm, setSearchTerm] = useState('');
   //let searchTerm = '';
   // const handleChange = (event) => {
   //   // setSearchTerm(event.target.value);

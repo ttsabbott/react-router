@@ -46,8 +46,9 @@ main.jsx
      <React.StrictMode>
        <App />
      </React.StrictMode>,
-     document.getElementById('root'
-```
+     document.getElementById('root')
+   );
+   ```
 
 ~~~~~
 
@@ -66,7 +67,6 @@ To use Material UI on one page and Bootstrap on another page in a React Single P
    - **Material UI Page**:
      ```jsx
      // src/pages/MaterialUIPage.jsx
-     import React from 'react';
      import Box from '@mui/material/Box';
      import TextField from '@mui/material/TextField';
      import Container from '@mui/material/Container';
@@ -104,7 +104,6 @@ To use Material UI on one page and Bootstrap on another page in a React Single P
    - **Bootstrap Page**:
      ```jsx
      // src/pages/BootstrapPage.jsx
-     import React from 'react';
      import 'bootstrap/dist/css/bootstrap.min.css';
      import { Button, Container, Row, Col } from 'react-bootstrap';
 
@@ -126,7 +125,6 @@ To use Material UI on one page and Bootstrap on another page in a React Single P
 3. **Set up routing in your main App component**:
    ```jsx
    // src/App.jsx
-   import React from 'react';
    import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
    import MaterialUIPage from './pages/MaterialUIPage';
    import BootstrapPage from './pages/BootstrapPage';

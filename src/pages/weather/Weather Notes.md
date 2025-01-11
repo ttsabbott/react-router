@@ -1,6 +1,7 @@
 # How to create weather url:
 <code>
-  const [pointsUrl, setPointsUrl] = React.useState(import.meta.env.VITE_NOAAWEATHER_URL + '/points/' + currentLocation.lat + ',' + currentLocation.long);
+  import { useState } from 'react';
+  const [pointsUrl, setPointsUrl] = useState(import.meta.env.VITE_NOAAWEATHER_URL + '/points/' + currentLocation.lat + ',' + currentLocation.long);
  </code>
 
 # Example URLs:
@@ -59,4 +60,4 @@
     return jsonData;
 
   }
-</code>  
+</code>
