@@ -8,7 +8,8 @@ import {
   Route,
   //Link,
   //NavLink,
-  createBrowserRouter,
+  //createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
   RouterProvider
 } from "react-router-dom";
@@ -39,7 +40,8 @@ import BlogDetails from './pages/blogs/BlogDetails.jsx';
 
 const baseUrl = import.meta.env.BASE_URL; // Static replacement during build
 
-const router = createBrowserRouter(
+//const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <Route element={<RootLayout />}>
       <Route index element={<Home />} />
@@ -69,7 +71,7 @@ const router = createBrowserRouter(
       <Route path="*" element={<NotFound />} />
     </Route>
   ),
-  { basename: "/react-router", }
+  // { basename: "/react-router", }
 );
 
 function App() {
