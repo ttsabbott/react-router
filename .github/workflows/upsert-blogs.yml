@@ -1,0 +1,47 @@
+name: Upsert Supabase Blogs
+
+on:
+  schedule:
+    - cron: '0 16 * * *'  # Runs daily at 9 AM MST (16:00 UTC)
+  workflow_dispatch:
+
+jobs:
+  upsert_and_fetch_blogs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Upsert blogs row into Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_SERVICE_KEY }}
+        run: |
+          UNIQUE_ID="5"
+
+          echo "Upserting blogs with ID $UNIQUE_ID"
+
+          curl -s -X POST "$SUPABASE_URL/rest/v1/blogs" \
+            -H "apikey: $SUPABASE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_KEY" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: resolution=merge-duplicates" \
+            -d "{
+              \"id\": \"$UNIQUE_ID\",
+              \"title\": \"Komatsu\",
+              \"body\": \"Modular Mining\",
+              \"author\": \"abbott\",
+              \"timestamp\": \"$(date -u +"%Y-%m-%dT%H:%M:%SZ")\"
+            }"
+
+      - name: Fetch the updated blogs row
+        env:
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_KEY }}
+        run: |
+          UNIQUE_ID="5"
+
+          echo "Fetching blogs for ID $UNIQUE_ID..."
+
+          curl -s "$SUPABASE_URL/rest/v1/blogs?id=eq.$UNIQUE_ID" \
+            -H "apikey: $SUPABASE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_KEY" \
+            -H "Accept: application/json"
